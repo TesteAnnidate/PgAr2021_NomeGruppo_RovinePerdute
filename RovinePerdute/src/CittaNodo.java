@@ -47,7 +47,7 @@ public class CittaNodo {
      *
      * @param mappa hashmap contenente tutte le città già inserte dalla lettura dell'xml
      * @param id     id della città di cui si vuole verificare la presenza
-     * @return boolean: torna vero se è presente e falso altrimenti
+     * @return CittaNodo: torna la città se presente, oppure una città con id = -1
      */
     public static CittaNodo trovaCittaDaID(HashMap<CittaNodo, ArrayList<CittaNodo>> mappa, int id){
         Set<CittaNodo> keys = mappa.keySet();
