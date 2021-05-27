@@ -1,7 +1,7 @@
 public class Metztli extends Veicolo{
 
     public Metztli() {
-
+        super("Metzli");
     }
 
     /**

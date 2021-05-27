@@ -10,7 +10,7 @@ public class Teeessst {
             System.out.println(citta.getNome());
         }*/
 
-        Mappa mappaCitta = new Mappa();
+        /*Mappa mappaCitta = new Mappa();
 
         Set<CittaNodo> settinoCitta = mappaCitta.getMappa().keySet();
         for(CittaNodo key : settinoCitta){
@@ -20,6 +20,8 @@ public class Teeessst {
                 System.out.println(collegata.getNome() + id);
 
             }
-        }
+        }*/
+        /*Metztli team = new Metztli();
+        System.out.println(team.getNomeVeicolo());*/
     }
 }

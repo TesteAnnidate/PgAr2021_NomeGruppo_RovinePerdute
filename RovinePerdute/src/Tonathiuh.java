@@ -2,7 +2,7 @@ public class Tonathiuh extends Veicolo {
 
     //costruttore vuoto se serve
     public Tonathiuh() {
-
+        super("Tonathiu");
     }
 
     /**
