@@ -66,6 +66,25 @@ public class CittaNodo {
         return new CittaNodo();
     }
 
+    /**
+     * metodo che consente di ottenere una città presente nella mappa, dato il suo id, nel caso in cui non fosse presente
+     * ritorna una città "vuota" che ha id = -1
+     * @param mappa
+     * @param id  della città da cercare
+     * @return  la città desiderata
+     */
+
+    public static CittaNodo trovaCittaInMappaId(Mappa mappa, int id){
+        Set<CittaNodo> keys = mappa.getMappa().keySet();
+        for(CittaNodo chiave : keys) {
+            if(chiave.getId() == id) {
+                return chiave;
+            }
+        }
+        return new CittaNodo();
+    }
+
+
     //GETTERS E SETTERS
 
     public void setPosizione(Coordinata posizione) {

@@ -6,6 +6,4 @@ abstract public class Veicolo {
 	 */
 	public abstract double calcolaDistanza(CittaNodo ct1, CittaNodo ct2);
    
-    
-
 }

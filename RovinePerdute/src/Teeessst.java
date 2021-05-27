@@ -16,7 +16,9 @@ public class Teeessst {
         for(CittaNodo key : settinoCitta){
             System.out.println("citta partenza"+ key.getNome());
             for(CittaNodo collegata : mappaCitta.getMappa().get(key)){
-                System.out.println(collegata.getNome());
+                int id = collegata.getId();
+                System.out.println(collegata.getNome() + id);
+
             }
         }
     }
