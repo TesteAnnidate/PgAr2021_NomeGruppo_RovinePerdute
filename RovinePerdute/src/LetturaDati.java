@@ -1,16 +1,11 @@
 
 
-//import it.unibs.fp.mylib.InputDati;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Classe statica contenente metodi per l'interazione con l'utente e per la lettura del file xml
@@ -36,10 +31,10 @@ public class LetturaDati {
      * metodo che restituisce l'intero corrispondende alla scelta fatta dall'utente
      * @return int che indica il file da leggere
      */
-    /*public static int sceltaFile(){
+    public static int sceltaFile(){
         vediFileDisponibili();
         return InputDati.leggiIntero("Seleziona la mappa che desideri usare", 1, 6);
-    }*/
+    }
 
 
     /**
@@ -49,29 +44,29 @@ public class LetturaDati {
      * @return stringa che indica il relative path dell'xml che si vuole leggere, fra quelli a disposizione
      * @see "leggiCitta"
      */
-    /*public static String selezionaFile(){
+    public static String selezionaPercorsoFile(){
         String percorsoFile = " ";
         switch (sceltaFile()){
-            case 1: percorsoFile = "mappeXML/PgAr_Map_5.xml";
-            case 2: percorsoFile = "mappeXML/PgAr_Map_12.xml";
-            case 3: percorsoFile = "mappeXML/PgAr_Map_50.xml";
-            case 4: percorsoFile = "mappeXML/PgAr_Map_200.xml";
-            case 5: percorsoFile = "mappeXML/PgAr_Map_2000.xml";
-            case 6: percorsoFile = "mappeXML/PgAr_Map_10000.xml";
+            case 1: percorsoFile = "mappeXML/PgAr_Map_5.xml"; break;
+            case 2: percorsoFile = "mappeXML/PgAr_Map_12.xml"; break;
+            case 3: percorsoFile = "mappeXML/PgAr_Map_50.xml"; break;
+            case 4: percorsoFile = "mappeXML/PgAr_Map_200.xml"; break;
+            case 5: percorsoFile = "mappeXML/PgAr_Map_2000.xml"; break;
+            case 6: percorsoFile = "mappeXML/PgAr_Map_10000.xml"; break;
         }
         return percorsoFile;
-    }*/
+    }
 
     /**
      * metodo che legge i dati da uno degli xml forniti e che restituisce l'insieme di tutte le città con le varie informazioni
-     * @return Hashmap che come chiavi ha le singole città e come valori ha gli array di città
+     * @return Arraylist delle città lette, ciascuna con gli id delle citta ad essa collegate
      * @see "selezionaFile"
      */
-    public static HashMap leggiCitta() throws XMLStreamException {
-        String percorsoFile = "mappeXML/PgAr_Map_5.xml";
-        HashMap<CittaNodo, ArrayList<CittaNodo>> mappa = new HashMap<>();
-        //ci inserisco e memorizzo tutti gli id
-        HashMap<Integer, ArrayList<Integer>> idCittaCollegate = new HashMap<>();
+    public static ArrayList<CittaNodo> leggiCitta() throws XMLStreamException {
+        String percorsoFile = selezionaPercorsoFile();
+        ArrayList<CittaNodo> listaCitta = new ArrayList<>();
+
+        System.out.println("CREAZIONE MAPPA IN CORSO...");
 
         XMLInputFactory xmlif = null;
         XMLStreamReader reader = null;
@@ -100,46 +95,21 @@ public class LetturaDati {
                         int x = Integer.parseInt(reader.getAttributeValue(2));
                         int id = Integer.parseInt(reader.getAttributeValue(0));
                         nuovaCitta = new CittaNodo(h, y, x, reader.getAttributeValue(1), id);
-                        mappa.put(nuovaCitta, new ArrayList<CittaNodo>());
-
-                        idCittaCollegate.put(id, new ArrayList<>());
+                        listaCitta.add(nuovaCitta);
                     }
                     else if(reader.getLocalName().equals("link")) {
-                        //se la città del link to esiste già nella mappa allora gliela aggiungo, altrimenti passo avanti
-                        //una volta che l'avrò messa allora "torno indietro ad impostarla"
-                        //controllo se la città con quell'id è già presente
-                        //NON SONO BIDIREZIONALI OSTREGA!
-                        CittaNodo collegata = CittaNodo.trovaCittaDaID(mappa, Integer.parseInt(reader.getAttributeValue(0)));
-                        if(collegata.getId() != -1){
-                            //se la citta con tale id era già presente come chiave allora la aggiungo all'array di città
-                            //collegate a quella che sto considerando attutalmente
-                            mappa.get(nuovaCitta).add(collegata);
-                            //rimuovo l'id della collegata dalla lista di cui sto tenendo traccia
-                            idCittaCollegate.get(nuovaCitta.getId()).remove(collegata.getId());
-                            //controllo che la citta collegata abbia un riferimento a quella che sto considerando attualmente
-                            //se è cosi creo il collegamento anche in quella
-                            if(idCittaCollegate.get(collegata.getId()).contains(nuovaCitta.getId())){
-                                mappa.get(collegata).add(nuovaCitta);
-                                idCittaCollegate.get(collegata.getId()).remove(nuovaCitta.getId());
-                            }
-                        }
+                       for(int i = 0; i < reader.getAttributeCount(); i ++){
+                           //riempio l'array in CittaNodo contenente gli id di tutte le citta ad essa collegate
+                           listaCitta.get(nuovaCitta.getId()).getIdCittaCollegate().add(Integer.parseInt(reader.getAttributeValue(i)));
+                       }
                     }
 
                 default: break;
             }
             reader.next();
         }
-        //controllo di aver impostato tutti i collegamenti andando a vedere se tutti gli array di idCittaCollegate sono vuoti
-        //se ne becco uno che non lo è allora ripasso
-        Set<Integer> keys = idCittaCollegate.keySet();
-        for(Integer chiave : keys) {
-            if(idCittaCollegate.get(chiave).size() != 0) {
-                //se è diversa da 0 vuol dire che non ho aggiunto qualche collegamento
-
-            }
-        }
-
-        return mappa;
+        System.out.println("MAPPA CREATA!!");
+        return listaCitta;
 
     }
 }

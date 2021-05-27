@@ -7,6 +7,12 @@ public class CittaNodo {
     Coordinata posizione;
     String nome;
     int id;
+    ArrayList<Integer> idCittaCollegate;
+
+
+    public ArrayList<Integer> getIdCittaCollegate() {
+        return idCittaCollegate;
+    }
 
     /**
      * costruttore che prende come parametro un oggetto Coordinata
@@ -18,6 +24,7 @@ public class CittaNodo {
         this.posizione = c1;
         this.nome = nome;
         this.id = id;
+        this.idCittaCollegate = new ArrayList<>();
     }
 
     /**
@@ -32,6 +39,7 @@ public class CittaNodo {
         this.posizione = new Coordinata(h, y, x);
         this.nome = nome;
         this.id = id;
+        this.idCittaCollegate = new ArrayList<>();
     }
 
     /**
@@ -45,15 +53,14 @@ public class CittaNodo {
     /**
      * metodo che verifica la presenza di una città nella mappa, dato il suo id
      *
-     * @param mappa hashmap contenente tutte le città già inserte dalla lettura dell'xml
+     * @param listaCitta Arraylist contenente tutte le città già inserite dalla lettura dell'xml
      * @param id     id della città di cui si vuole verificare la presenza
      * @return CittaNodo: torna la città se presente, oppure una città con id = -1
      */
-    public static CittaNodo trovaCittaDaID(HashMap<CittaNodo, ArrayList<CittaNodo>> mappa, int id){
-        Set<CittaNodo> keys = mappa.keySet();
-        for(CittaNodo chiave : keys) {
-            if(chiave.getId() == id) {
-                return chiave;
+    public static CittaNodo trovaCittaDaID(ArrayList<CittaNodo> listaCitta, int id){
+        for(CittaNodo citta : listaCitta) {
+            if(citta.getId() == id) {
+                return citta;
             }
         }
         return new CittaNodo();
