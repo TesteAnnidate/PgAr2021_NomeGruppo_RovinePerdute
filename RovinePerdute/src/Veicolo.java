@@ -1,10 +1,11 @@
 abstract public class Veicolo {
-    //nome
-
-    //metodo astratto per calcolo del carburante: prende due citta come parametri
-    public int calcolaDistanza(CittaNodo ct1, CittaNodo ct2) {
-
-        return 0;
-    }
+    
+	/**
+	 * metodo specifico di ogni veicolo che indica la distanza tra due città
+	 * @return distanza tra due citta' inerente al particolare consumo
+	 */
+	public abstract double calcolaDistanza(CittaNodo ct1, CittaNodo ct2);
+   
+    
 
 }
