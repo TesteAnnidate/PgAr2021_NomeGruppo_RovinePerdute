@@ -17,13 +17,13 @@ public class LetturaDati {
      * metodo che stampa a video alcune indicazioni riguardo i file xml disponibili
      */
     public static void vediFileDisponibili(){
-        System.out.println("Di seguito verrano elencate le mappe disponibili.");
-        System.out.println("--> 1 : 5 citta'");
-        System.out.println("--> 2 : 12 citta'");
-        System.out.println("--> 3 : 50 citta'");
-        System.out.println("--> 4 : 200 citta'");
-        System.out.println("--> 5 : 2000 citta'");
-        System.out.println("--> 6 : 10 000 citta'");
+        System.out.println(Costanti.PRESENTAZIONE_FILES);
+        System.out.println(Costanti.FILE_5_CITTA);
+        System.out.println(Costanti.FILE_12_CITTA);
+        System.out.println(Costanti. FILE_50_CITTA);
+        System.out.println(Costanti.FILE_200_CITTA);
+        System.out.println(Costanti.FILE_2000_CITTA);
+        System.out.println(Costanti.FILE_10000_CITTA);
 
     }
 
@@ -33,7 +33,7 @@ public class LetturaDati {
      */
     public static int sceltaFile(){
         vediFileDisponibili();
-        return InputDati.leggiIntero("Seleziona la mappa che desideri usare", 1, 6);
+        return InputDati.leggiIntero(Costanti.SELEZIONA_FILE, 1, 6);
     }
 
 
@@ -47,12 +47,12 @@ public class LetturaDati {
     public static String selezionaPercorsoFile(){
         String percorsoFile = " ";
         switch (sceltaFile()){
-            case 1: percorsoFile = "mappeXML/PgAr_Map_5.xml"; break;
-            case 2: percorsoFile = "mappeXML/PgAr_Map_12.xml"; break;
-            case 3: percorsoFile = "mappeXML/PgAr_Map_50.xml"; break;
-            case 4: percorsoFile = "mappeXML/PgAr_Map_200.xml"; break;
-            case 5: percorsoFile = "mappeXML/PgAr_Map_2000.xml"; break;
-            case 6: percorsoFile = "mappeXML/PgAr_Map_10000.xml"; break;
+            case 1: percorsoFile = Costanti.PERCORSO_FILE_5; break;
+            case 2: percorsoFile = Costanti.PERCORSO_FILE_12; break;
+            case 3: percorsoFile = Costanti.PERCORSO_FILE_50; break;
+            case 4: percorsoFile = Costanti.PERCORSO_FILE_200; break;
+            case 5: percorsoFile = Costanti.PERCORSO_FILE_2000; break;
+            case 6: percorsoFile = Costanti.PERCORSO_FILE_10000; break;
         }
         return percorsoFile;
     }
@@ -66,7 +66,7 @@ public class LetturaDati {
         String percorsoFile = selezionaPercorsoFile();
         ArrayList<CittaNodo> listaCitta = new ArrayList<>();
 
-        System.out.println("CREAZIONE MAPPA IN CORSO...");
+        System.out.println(Costanti.LETTURA_IN_CORSO);
 
         XMLInputFactory xmlif = null;
         XMLStreamReader reader = null;
@@ -75,7 +75,7 @@ public class LetturaDati {
             xmlif = XMLInputFactory.newInstance();
             reader = xmlif.createXMLStreamReader(percorsoFile, new FileInputStream(percorsoFile));
         } catch (Exception e) {
-            System.out.println("Errore nell'inizializzazione del reader:");
+            System.out.println(Costanti.ERRORE_INIZIALIZZAZIONE_READER);
             System.out.println(e.getMessage());
         }
 
@@ -88,7 +88,7 @@ public class LetturaDati {
                 case XMLStreamConstants.START_ELEMENT:
                     //se l'elemento iniziale è città allora creo una nuova città settando i vari attributi e la aggiungo
                     //all'Hashmap
-                    if(reader.getLocalName().equals("city")) {
+                    if(reader.getLocalName().equals(Costanti.LOCAL_NAME_CITY)) {
                         //creo e aggiungo direttamente alla mappa una CittaNodo, con i dati presi dall'xml
                         int h = Integer.parseInt(reader.getAttributeValue(4));
                         int y = Integer.parseInt(reader.getAttributeValue(3));
@@ -97,7 +97,7 @@ public class LetturaDati {
                         nuovaCitta = new CittaNodo(h, y, x, reader.getAttributeValue(1), id);
                         listaCitta.add(nuovaCitta);
                     }
-                    else if(reader.getLocalName().equals("link")) {
+                    else if(reader.getLocalName().equals(Costanti.LOCAL_NAME_LINK)) {
                        for(int i = 0; i < reader.getAttributeCount(); i ++){
                            //riempio l'array in CittaNodo contenente gli id di tutte le citta ad essa collegate
                            listaCitta.get(nuovaCitta.getId()).getIdCittaCollegate().add(Integer.parseInt(reader.getAttributeValue(i)));
@@ -108,7 +108,7 @@ public class LetturaDati {
             }
             reader.next();
         }
-        System.out.println("MAPPA CREATA!!");
+        System.out.println(Costanti.MAPPA_CREATA);
         return listaCitta;
 
     }

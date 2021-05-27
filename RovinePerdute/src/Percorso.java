@@ -41,10 +41,57 @@ public class Percorso {
     }
 
 
-	
-   
-    
-    //metodi setters e getters
+    //GETTERS E SETTERS
+	public CittaNodo getCampoBase() {
+		return campoBase;
+	}
+
+	public void setCampoBase(CittaNodo campoBase) {
+		this.campoBase = campoBase;
+	}
+
+	public CittaNodo getCittaFinale() {
+		return cittaFinale;
+	}
+
+	public void setCittaFinale(CittaNodo cittaFinale) {
+		this.cittaFinale = cittaFinale;
+	}
+
+	public double getCarburanteSpeso() {
+		return carburanteSpeso;
+	}
+
+	public void setCarburanteSpeso(double carburanteSpeso) {
+		this.carburanteSpeso = carburanteSpeso;
+	}
+
+	public ArrayList<CittaNodo> getCittaToccate() {
+		return cittaToccate;
+	}
+
+	public void setCittaToccate(ArrayList<CittaNodo> cittaToccate) {
+		this.cittaToccate = cittaToccate;
+	}
+
+	public Veicolo getMezzoUtilizzato() {
+		return mezzoUtilizzato;
+	}
+
+	public void setMezzoUtilizzato(Veicolo mezzoUtilizzato) {
+		this.mezzoUtilizzato = mezzoUtilizzato;
+	}
+
+	public Mappa getMappa() {
+		return mappa;
+	}
+
+	public void setMappa(Mappa mappa) {
+		this.mappa = mappa;
+	}
+
+
+	//metodi setters e getters
 
     /*
     * campo base: 1 2 3
