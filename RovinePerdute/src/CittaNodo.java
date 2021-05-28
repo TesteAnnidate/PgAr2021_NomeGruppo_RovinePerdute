@@ -4,6 +4,10 @@ import java.util.Objects;
 import java.util.Set;
 
 public class CittaNodo {
+	
+	
+	private CittaNodo cittaCollegata;
+    private double distanzaDalCampoBase;
     Coordinata posizione;
     String nome;
     int id;
@@ -25,6 +29,8 @@ public class CittaNodo {
         this.nome = nome;
         this.id = id;
         this.idCittaCollegate = new ArrayList<>();
+        this.cittaCollegata = null; 
+		this.distanzaDalCampoBase = Costanti.INFINITO;
     }
 
     /**
@@ -40,6 +46,8 @@ public class CittaNodo {
         this.nome = nome;
         this.id = id;
         this.idCittaCollegate = new ArrayList<>();
+        this.cittaCollegata = null; 
+		this.distanzaDalCampoBase = Costanti.INFINITO;
     }
 
     /**
@@ -48,6 +56,8 @@ public class CittaNodo {
      */
     public CittaNodo(){
         this.id = -1;
+        this.cittaCollegata = null; 
+		this.distanzaDalCampoBase = Costanti.INFINITO;
     }
 
     /**
@@ -85,29 +95,51 @@ public class CittaNodo {
     }
 
 
+
+
     //GETTERS E SETTERS
+	public CittaNodo getCittaCollegata() {
+		return cittaCollegata;
+	}
 
-    public void setPosizione(Coordinata posizione) {
-        this.posizione = posizione;
-    }
+	public void setCittaCollegata(CittaNodo cittaCollegata) {
+		this.cittaCollegata = cittaCollegata;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public double getDistanzaDalCampoBase() {
+		return distanzaDalCampoBase;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setDistanzaDalCampoBase(double distanzaDalCampoBase) {
+		this.distanzaDalCampoBase = distanzaDalCampoBase;
+	}
 
-    public Coordinata getPosizione() {
-        return posizione;
-    }
+	public Coordinata getPosizione() {
+		return posizione;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setPosizione(Coordinata posizione) {
+		this.posizione = posizione;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setIdCittaCollegate(ArrayList<Integer> idCittaCollegate) {
+		this.idCittaCollegate = idCittaCollegate;
+	}
+   
 }
