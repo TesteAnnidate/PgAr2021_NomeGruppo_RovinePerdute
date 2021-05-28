@@ -12,7 +12,14 @@ abstract public class Veicolo {
 	 */
 	public abstract double calcolaDistanza(CittaNodo ct1, CittaNodo ct2);
 
+	
+	// Getters e setters
 	public String getNomeVeicolo() {
 		return nomeVeicolo;
 	}
+
+	public void setNomeVeicolo(String nomeVeicolo) {
+		this.nomeVeicolo = nomeVeicolo;
+	}
+	
 }

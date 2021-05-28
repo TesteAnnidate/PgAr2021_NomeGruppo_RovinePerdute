@@ -1,7 +1,7 @@
 public class Coordinata {
-    int x;
-    int y;
-    int h;
+    private int x;
+    private int y;
+    private int h;
 
     public Coordinata(int h, int y, int x){
         this.x = x;

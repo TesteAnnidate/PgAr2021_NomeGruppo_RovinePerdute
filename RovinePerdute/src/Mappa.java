@@ -24,6 +24,8 @@ public class Mappa {
 		this.mappa = mappaCitta;
 	}
 
+
+	// Get
 	public HashMap<CittaNodo, ArrayList<CittaNodo>> getMappa() {
 		return mappa;
 	}

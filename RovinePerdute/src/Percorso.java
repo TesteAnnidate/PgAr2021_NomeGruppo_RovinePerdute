@@ -8,63 +8,21 @@ public class Percorso {
 	private double carburanteSpeso;
 	private ArrayList<CittaNodo> cittaToccate = new ArrayList<>();
 	private Veicolo mezzoUtilizzato;
-	private Mappa mappa;
+	private DijkstraMap mappaDijkstra;
 
 	// costruttore che prende solo un veicolo e che imposta il resto a null
-	public Percorso(Mappa mappa, Veicolo mezzoUtilizzato) {
-		this.mappa = mappa;
-		this.cittaFinale = CittaNodo.trovaCittaInMappaId(mappa, mappa.getMappa().size());
-		this.cittaIniziale = CittaNodo.trovaCittaInMappaId(mappa, 0);
+	public Percorso(DijkstraMap mappa, Veicolo mezzoUtilizzato) {
+		this.mappaDijkstra = mappa;
+		this.cittaFinale = CittaNodo.trovaCittaInMappaDijkstraId(mappa, mappa.getMappaDijkstra().size() - 1);
+		this.cittaIniziale = CittaNodo.trovaCittaInMappaDijkstraId(mappa, 0);
 		this.mezzoUtilizzato = mezzoUtilizzato;
 		this.cittaToccate = trovaCitta();
-		this.carburanteSpeso = calcolaDistanza();
+		this.carburanteSpeso = 0;
 
 	}
 
-	public Mappa convertiInDijkstra() {
-		Mappa dijkstra = this.mappa;
-		CittaNodo campoBase = CittaNodo.trovaCittaInMappaId(dijkstra, 0);
-		long distanzaMinima = Costanti.INFINITO;
-		CittaNodo prossimaCitta = new CittaNodo();
-		ArrayList<CittaNodo> listaCittaVisitate = new ArrayList<CittaNodo>();
-		for (int i = 0; i < campoBase.getIdCittaCollegate().size(); i++) {
-			CittaNodo ct2 = CittaNodo.trovaCittaInMappaId(dijkstra, campoBase.getIdCittaCollegate().get(i));
-			double distanza = mezzoUtilizzato.calcolaDistanza(campoBase, ct2);
-
-			if (distanza < distanzaMinima) {
-				distanzaMinima = (long) distanza;
-				prossimaCitta = ct2;
-				ct2.setCittaCollegata(campoBase);
-			}
-
-			if (distanza < ct2.getDistanzaDalCampoBase())
-				ct2.setDistanzaDalCampoBase((long) distanza);
-		}
-		listaCittaVisitate.add(campoBase);
-		int numeroCittaInMappa = dijkstra.getMappa().keySet().size();
-		while (listaCittaVisitate.size() < numeroCittaInMappa) {
-			distanzaMinima = Costanti.INFINITO;
-			CittaNodo cittaCorrente = prossimaCitta;
-			for (int i = 0; i < cittaCorrente.getIdCittaCollegate().size(); i++) {
-				CittaNodo ct2 = CittaNodo.trovaCittaInMappaId(dijkstra, cittaCorrente.getIdCittaCollegate().get(i));
-				if (listaCittaVisitate.contains(ct2)) // Se la città e' gia' stata visitata allora la ignora
-					continue;
-				double distanza = mezzoUtilizzato.calcolaDistanza(cittaCorrente, ct2);
-
-				if (distanza < distanzaMinima) {
-					distanzaMinima = (long) distanza;
-					prossimaCitta = ct2;
-					ct2.setCittaCollegata(cittaCorrente);
-				}
-
-				if (distanza < ct2.getDistanzaDalCampoBase())
-					ct2.setDistanzaDalCampoBase(DistanzaPrecedente(ct2) + (long) distanza);
-			}
-			listaCittaVisitate.add(cittaCorrente);
-
-		}
-
-		return dijkstra;
+	public double carburante() {
+		return cittaFinale.getDistanzaDalCampoBase();
 	}
 
 	/**
@@ -73,9 +31,11 @@ public class Percorso {
 	 * @param citta
 	 * @return la distanza totale precedente
 	 */
-	public static double DistanzaPrecedente(CittaNodo citta) {
-		double distanza = citta.getCittaCollegata().getDistanzaDalCampoBase();
-		distanza += Percorso.DistanzaPrecedente(citta.getCittaCollegata());
+	public static double distanzaPrecedente(CittaNodo citta, double distanza) {
+		while (citta.getCittaCollegata().getDistanzaDalCampoBase() != 0) {
+			distanza += citta.getCittaCollegata().getDistanzaDalCampoBase();
+			return Percorso.distanzaPrecedente(citta.getCittaCollegata(), distanza);
+		}
 		return distanza;
 	}
 
@@ -94,18 +54,17 @@ public class Percorso {
 	 *         carburanteSpeso
 	 *
 	 */
-	public double calcolaDistanza() {
-		double distanza = mezzoUtilizzato.calcolaDistanza(cittaIniziale, cittaToccate.get(0));
-		for (int i = 1; i < cittaToccate.size() - 1; i++)
-			distanza += mezzoUtilizzato.calcolaDistanza(cittaToccate.get(i), cittaToccate.get(i + 1));
-		return distanza;
-	}
+	/*
+	 * public double calcolaDistanza() { double distanza =
+	 * mezzoUtilizzato.calcolaDistanza(cittaIniziale, cittaToccate.get(0)); for (int
+	 * i = 1; i < cittaToccate.size() - 1; i++) distanza +=
+	 * mezzoUtilizzato.calcolaDistanza(cittaToccate.get(i), cittaToccate.get(i +
+	 * 1)); return distanza; }
+	 * 
+	 */
 
+	// GETTERS E SETTERS
 
-
-    //GETTERS E SETTERS
-
-	
 	public CittaNodo getCittaFinale() {
 		return cittaFinale;
 	}
@@ -116,14 +75,6 @@ public class Percorso {
 
 	public void setCittaIniziale(CittaNodo cittaIniziale) {
 		this.cittaIniziale = cittaIniziale;
-	}
-
-	public Mappa getMappa() {
-		return mappa;
-	}
-
-	public void setMappa(Mappa mappa) {
-		this.mappa = mappa;
 	}
 
 	public void setCittaFinale(CittaNodo cittaFinale) {
@@ -153,6 +104,13 @@ public class Percorso {
 	public void setMezzoUtilizzato(Veicolo mezzoUtilizzato) {
 		this.mezzoUtilizzato = mezzoUtilizzato;
 	}
-	
+
+	public DijkstraMap getMappaDijkstra() {
+		return mappaDijkstra;
+	}
+
+	public void setMappaDijkstra(DijkstraMap mappaDijkstra) {
+		this.mappaDijkstra = mappaDijkstra;
+	}
 
 }
