@@ -3,12 +3,12 @@ import java.util.ArrayList;
 import javax.xml.stream.XMLStreamException;
 
 public class Percorso {
-	CittaNodo cittaIniziale;
-	CittaNodo cittaFinale;
-	double carburanteSpeso;
-	ArrayList<CittaNodo> cittaToccate = new ArrayList<>();
-	Veicolo mezzoUtilizzato;
-	Mappa mappa;
+	private CittaNodo cittaIniziale;
+	private CittaNodo cittaFinale;
+	private double carburanteSpeso;
+	private ArrayList<CittaNodo> cittaToccate = new ArrayList<>();
+	private Veicolo mezzoUtilizzato;
+	private Mappa mappa;
 
 	// costruttore che prende solo un veicolo e che imposta il resto a null
 	public Percorso(Mappa mappa, Veicolo mezzoUtilizzato) {
@@ -81,9 +81,9 @@ public class Percorso {
 
 	// metodo che data la CittaNodo campoBase e la CittaNodo a cui
 	// si vuole arrivare ti ritorna una lista che contiene le citta toccate
-	private ArrayList<CittaNodo> trovaCitta() {
+	public ArrayList<CittaNodo> trovaCitta() {
 		ArrayList<CittaNodo> cittaToccate = new ArrayList<CittaNodo>();
-
+		cittaToccate.add(cittaFinale.getCittaCollegata());
 		return cittaToccate;
 	}
 
@@ -101,10 +101,58 @@ public class Percorso {
 		return distanza;
 	}
 
-	// metodi setters e getters
 
-	/*
-	 * campo base: 1 2 3 citta 2: 4 6 3
-	 */
+
+    //GETTERS E SETTERS
+
+	
+	public CittaNodo getCittaFinale() {
+		return cittaFinale;
+	}
+
+	public CittaNodo getCittaIniziale() {
+		return cittaIniziale;
+	}
+
+	public void setCittaIniziale(CittaNodo cittaIniziale) {
+		this.cittaIniziale = cittaIniziale;
+	}
+
+	public Mappa getMappa() {
+		return mappa;
+	}
+
+	public void setMappa(Mappa mappa) {
+		this.mappa = mappa;
+	}
+
+	public void setCittaFinale(CittaNodo cittaFinale) {
+		this.cittaFinale = cittaFinale;
+	}
+
+	public double getCarburanteSpeso() {
+		return carburanteSpeso;
+	}
+
+	public void setCarburanteSpeso(double carburanteSpeso) {
+		this.carburanteSpeso = carburanteSpeso;
+	}
+
+	public ArrayList<CittaNodo> getCittaToccate() {
+		return cittaToccate;
+	}
+
+	public void setCittaToccate(ArrayList<CittaNodo> cittaToccate) {
+		this.cittaToccate = cittaToccate;
+	}
+
+	public Veicolo getMezzoUtilizzato() {
+		return mezzoUtilizzato;
+	}
+
+	public void setMezzoUtilizzato(Veicolo mezzoUtilizzato) {
+		this.mezzoUtilizzato = mezzoUtilizzato;
+	}
+	
 
 }
