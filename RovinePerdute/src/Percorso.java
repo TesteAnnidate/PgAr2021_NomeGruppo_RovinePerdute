@@ -16,7 +16,7 @@ public class Percorso {
 		this.cittaFinale = CittaNodo.trovaCittaInMappaDijkstraId(mappa, mappa.getMappaDijkstra().size() - 1);
 		this.cittaIniziale = CittaNodo.trovaCittaInMappaDijkstraId(mappa, 0);
 		this.mezzoUtilizzato = mezzoUtilizzato;
-		this.cittaToccate = trovaCitta();
+		this.cittaToccate = trovaCitta(cittaFinale, new ArrayList<CittaNodo>());
 		this.carburanteSpeso = 0;
 
 	}
@@ -41,9 +41,12 @@ public class Percorso {
 
 	// metodo che data la CittaNodo campoBase e la CittaNodo a cui
 	// si vuole arrivare ti ritorna una lista che contiene le citta toccate
-	public ArrayList<CittaNodo> trovaCitta() {
-		ArrayList<CittaNodo> cittaToccate = new ArrayList<CittaNodo>();
-		cittaToccate.add(cittaFinale.getCittaCollegata());
+	public ArrayList<CittaNodo> trovaCitta(CittaNodo citta, ArrayList<CittaNodo> cittaToccate) {
+		while (citta.getCittaCollegata().getDistanzaDalCampoBase() != 0) {
+			cittaToccate.add(citta.getCittaCollegata());
+			return trovaCitta(citta.getCittaCollegata(), cittaToccate);
+		}
+			
 		return cittaToccate;
 	}
 

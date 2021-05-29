@@ -26,11 +26,14 @@ public class DijkstraMap {
 			if (distanza < distanzaMinima) {
 				distanzaMinima = (long) distanza;
 				prossimaCitta = ct2;
-				ct2.setCittaCollegata(campoBase);
+				
 			}
 
-			if (distanza < ct2.getDistanzaDalCampoBase())
+			if (distanza < ct2.getDistanzaDalCampoBase()) {
 				ct2.setDistanzaDalCampoBase((long) distanza);
+				ct2.setCittaCollegata(campoBase);
+			}
+				
 		}
 		listaCittaVisitate.add(campoBase);
 		mappaDijkstra.put(campoBase, campoBase);
