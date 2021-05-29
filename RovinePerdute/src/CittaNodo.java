@@ -12,9 +12,7 @@ public class CittaNodo {
 	private int id;
 	private ArrayList<Integer> idCittaCollegate;
 
-	public ArrayList<Integer> getIdCittaCollegate() {
-		return idCittaCollegate;
-	}
+
 
 	/**
 	 * costruttore che prende come parametro un oggetto Coordinata
@@ -153,6 +151,9 @@ public class CittaNodo {
 	public void setIdCittaCollegate(ArrayList<Integer> idCittaCollegate) {
 		this.idCittaCollegate = idCittaCollegate;
 	}
-	
+
+	public ArrayList<Integer> getIdCittaCollegate() {
+		return idCittaCollegate;
+	}
 
 }

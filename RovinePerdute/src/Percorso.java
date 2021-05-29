@@ -17,7 +17,7 @@ public class Percorso {
 		this.cittaIniziale = CittaNodo.trovaCittaInMappaDijkstraId(mappa, 0);
 		this.mezzoUtilizzato = mezzoUtilizzato;
 		this.cittaToccate = trovaCitta(cittaFinale, new ArrayList<CittaNodo>());
-		this.carburanteSpeso = 0;
+		this.carburanteSpeso = carburante();
 
 	}
 

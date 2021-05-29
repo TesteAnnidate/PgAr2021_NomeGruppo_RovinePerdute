@@ -21,7 +21,7 @@ public class ScritturaFinale {
 
         try {
             xmlof = XMLOutputFactory.newInstance();
-            writer = xmlof.createXMLStreamWriter(new FileOutputStream(file_name), "utf-8");
+            writer = xmlof.createXMLStreamWriter(new FileOutputStream(file_name), Costanti.ENCODING);
 
             writer.writeStartDocument(Costanti.ENCODING, Costanti.VERSION); //chiuso
             writer.writeStartElement(Costanti.ROUTES); // chiuso

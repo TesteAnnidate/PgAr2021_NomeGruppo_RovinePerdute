@@ -1,1 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><routes><route team="Metzli" cost="0.0" cities="2"><city id="3" name="Mixco Vieio"></city><city id="1" name="Tikal"></city><route team="Metzli" cost="0.0" cities="2"><city id="3" name="Mixco Vieio"></city><city id="1" name="Tikal"></city></route></route></routes>
+<?xml version="1.0" encoding="utf-8"?>
+<routes>
+    <route team="Tonathiu" cost="1.0" cities="0">
+        <route team="Metzli" cost="7.0" cities="2">
+            <city id="7" name="Tikal"></city>
+            <city id="6" name="Tenochtitlan"></city>
+        </route>
+    </route>
+</routes>

@@ -12,7 +12,7 @@ public class Main {
 		DijkstraMap mappaDijkstra = new DijkstraMap(metztli, mappa);
 		DijkstraMap mappaDijkstraT = new DijkstraMap(tonathiuh, mappa);
 		Percorso percorso = new Percorso(mappaDijkstra, metztli);
-		Percorso percorsoT = new Percorso(mappaDijkstraT, metztli);
+		Percorso percorsoT = new Percorso(mappaDijkstraT, tonathiuh);
 		ArrayList<Percorso> list = new ArrayList<Percorso>();
 		list.add(percorsoT);
 		list.add(percorso);
